@@ -3,18 +3,45 @@ package controllers;
 import views.ShowConsole;
 
 public class MetodosBusqueda {
-    ShowConsole showConsole = new ShowConsole();
-    private int[]arreglo[1,2,3,4,5,6,7,8,9,10];
-    private 
-    public int MetodosBusqueda(int[] arreglo, int clave) {
+
+    private ShowConsole showConsole;
+    private Person[] people;
+
+    public MetodosBusqueda(Person[] persons){
+        showConsole = new ShowConsole();
+        this.people = persons;
+    }
+
+    public int busquedaLineal(int[] arreglo, int valor) {
         for (int i = 0; i < arreglo.length; i++) {
-            if (arreglo[i] == clave) {
-                showConsole.mostrarMensaje("Encontrado en la posición: " + i);
+            if (arreglo[i] == valor) {
                 return i;
             }
         }
-        showConsole.mostrarMensaje("Elemento no encontrado.");
         return -1;
     }
-}
 
+    //retornar la posición del valor buscado
+    public int findPersonByCode(int code){
+        for (int i = 0; i < people.length; i++){
+            if(people[i].getCode() == code){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void showPersonByCode(){
+        
+        int codeToFind = showConsole.getCode();
+        int indexPerson = findPersonByCode(codeToFind);
+        if(indexPerson >= 0){
+            showConsole.showMessage("Persona encontrada");
+            showConsole.showMessage(people[indexPerson]);
+            System.out.println(people[indexPerson].toString());
+        }else{
+            showConsole.showMessage("Persona con código" + codeToFind + "no encontrado");
+        }
+
+    }
+}
